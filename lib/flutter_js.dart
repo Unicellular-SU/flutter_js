@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_js/javascript_runtime.dart';
 
 import 'package:flutter_js/javascriptcore/jscore_runtime.dart';
+import 'package:flutter_js/my_dynamic_lib.dart';
 //import 'package:flutter_js/quickjs-sync-server/quickjs_oasis_jsbridge.dart';
 //import 'package:flutter_js/quickjs/quickjs_runtime.dart';
 
@@ -25,12 +26,16 @@ export 'javascript_runtime.dart';
 // REF:
 // - https://medium.com/flutter-community/conditional-imports-across-flutter-and-web-4b88885a886e
 // - https://github.com/creativecreatorormaybenot/wakelock/blob/master/wakelock/lib/wakelock.dart
-JavascriptRuntime getJavascriptRuntime({
-  bool forceJavascriptCoreOnAndroid = false,
-  bool xhr = true,
-  Map<String, dynamic>? extraArgs = const {},
-}) {
+JavascriptRuntime getJavascriptRuntime(
+    {bool forceJavascriptCoreOnAndroid = false,
+    bool xhr = true,
+    Map<String, dynamic>? extraArgs = const {},
+    String? packageName}) {
   JavascriptRuntime runtime;
+
+  if (Platform.isAndroid && packageName != null) {
+    MyDLikLib().setPackageName(packageName: packageName);
+  }
   if ((Platform.isAndroid && !forceJavascriptCoreOnAndroid)) {
     int stackSize = extraArgs?['stackSize'] ?? 1024 * 1024;
     runtime = QuickJsRuntime2(stackSize: stackSize);

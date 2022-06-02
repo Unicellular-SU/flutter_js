@@ -9,6 +9,7 @@ import 'dart:ffi';
 import 'dart:io';
 import 'dart:isolate';
 import 'package:ffi/ffi.dart';
+import 'package:flutter_js/my_dynamic_lib.dart';
 
 extension ListFirstWhere<T> on Iterable<T> {
   T? firstWhereOrNull(bool Function(T) test) {
@@ -113,21 +114,23 @@ abstract class JSRuntime extends Opaque {}
 
 abstract class JSPropertyEnum extends Opaque {}
 
-final DynamicLibrary _qjsLib = Platform.environment['FLUTTER_TEST'] == 'true'
-    ? (Platform.isWindows
-        ? DynamicLibrary.open('quickjs_c_bridge.dll')
-        : Platform.isMacOS
-            ? DynamicLibrary.process()
-            : DynamicLibrary.open(Platform.environment['LIBQUICKJSC_TEST_PATH'] ??
-                'libquickjs_c_bridge_plugin.so'))
-    : (Platform.isWindows
-        ? DynamicLibrary.open('quickjs_c_bridge.dll')
-        : (Platform.isLinux
-            ? DynamicLibrary.open(Platform.environment['LIBQUICKJSC_PATH'] ??
-                'libquickjs_c_bridge_plugin.so')
-            : (Platform.isAndroid
-                ? DynamicLibrary.open('libfastdev_quickjs_runtime.so')
-                : DynamicLibrary.process())));
+// final DynamicLibrary _qjsLib = Platform.environment['FLUTTER_TEST'] == 'true'
+//     ? (Platform.isWindows
+//         ? DynamicLibrary.open('quickjs_c_bridge.dll')
+//         : Platform.isMacOS
+//             ? DynamicLibrary.process()
+//             : DynamicLibrary.open(Platform.environment['LIBQUICKJSC_TEST_PATH'] ??
+//                 'libquickjs_c_bridge_plugin.so'))
+//     : (Platform.isWindows
+//         ? DynamicLibrary.open('quickjs_c_bridge.dll')
+//         : (Platform.isLinux
+//             ? DynamicLibrary.open(Platform.environment['LIBQUICKJSC_PATH'] ??
+//                 'libquickjs_c_bridge_plugin.so')
+//             : (Platform.isAndroid
+//                 ? DynamicLibrary.open('libfastdev_quickjs_runtime.so')
+//                 : DynamicLibrary.process())));
+
+final DynamicLibrary _qjsLib = MyDLikLib().getDynamicLibrary();
 
 /// DLLEXPORT JSValue *jsThrow(JSContext *ctx, JSValue *obj)
 final Pointer<JSValue> Function(

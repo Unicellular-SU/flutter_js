@@ -3,17 +3,17 @@ import 'package:flutter_js/quickjs/utf8_null_terminated.dart';
 
 class JSContext extends Struct {
   @Uint8()
-  int? char;
+  external int? char;
 }
 
 class JSRuntime extends Struct {
   @Uint8()
-  int? char;
+  external int? char;
 }
 
 class JSValueConst extends Struct {
   @Uint8()
-  int? char;
+  external int? char;
 }
 
 const int JS_EVAL_TYPE_GLOBAL = 0;

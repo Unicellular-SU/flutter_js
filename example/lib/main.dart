@@ -32,7 +32,8 @@ class FlutterJsHomeScreen extends StatefulWidget {
 class _FlutterJsHomeScreenState extends State<FlutterJsHomeScreen> {
   String _jsResult = '';
 
-  final JavascriptRuntime javascriptRuntime = getJavascriptRuntime();
+  final JavascriptRuntime javascriptRuntime =
+      getJavascriptRuntime(packageName: 'io.abner.flutter_js_example');
 
   String? _quickjsVersion;
 
