@@ -1,4 +1,5 @@
 import 'dart:convert';
+// import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_js/javascript_runtime.dart';
@@ -26,15 +27,24 @@ export 'javascript_runtime.dart';
 // REF:
 // - https://medium.com/flutter-community/conditional-imports-across-flutter-and-web-4b88885a886e
 // - https://github.com/creativecreatorormaybenot/wakelock/blob/master/wakelock/lib/wakelock.dart
-JavascriptRuntime getJavascriptRuntime(
-    {bool forceJavascriptCoreOnAndroid = false,
-    bool xhr = true,
-    Map<String, dynamic>? extraArgs = const {},
-    String? packageName}) {
+Future<JavascriptRuntime> getJavascriptRuntime({
+  bool forceJavascriptCoreOnAndroid = false,
+  bool xhr = true,
+  Map<String, dynamic>? extraArgs = const {},
+  // String? packageName,
+}) async {
   JavascriptRuntime runtime;
 
-  if (Platform.isAndroid && packageName != null) {
-    MyDLikLib().setPackageName(packageName: packageName);
+  if (Platform.isAndroid) {
+    final String? packageName =
+        await _methodChannel.invokeMethod('getPackageName');
+    final String? nativeDir =
+        await _methodChannel.invokeMethod('getNativeLibraryDirectory');
+    // log('nativeDir---->$nativeDir');
+    if (nativeDir != null && packageName != null) {
+      MyDLikLib().setPackageName(packageName: packageName);
+      MyDLikLib().setNativeDir(nativeDir: nativeDir);
+    }
   }
   if ((Platform.isAndroid && !forceJavascriptCoreOnAndroid)) {
     int stackSize = extraArgs?['stackSize'] ?? 1024 * 1024;
@@ -155,6 +165,7 @@ class FlutterJs {
   static Future<int?> initEngine(int? engineId) async {
     Map<dynamic, dynamic> mapResult = await (_methodChannel.invokeMethod(
         "initEngine", engineId) as Future<Map<dynamic, dynamic>>);
+
     _httpPort = mapResult['httpPort'] as int?;
     _httpPassword = mapResult['httpPassword'] as String?;
     return engineId;

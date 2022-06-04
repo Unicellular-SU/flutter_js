@@ -1,6 +1,6 @@
 // ignore_for_file: unused_import
 
-import 'dart:developer';
+// import 'dart:developer';
 import 'dart:ffi' show DynamicLibrary;
 import 'dart:io';
 
@@ -79,9 +79,9 @@ class MyDLikLib {
         // final String? nativeLibraryDirectory =
         //     await _getNativeLibraryDirectory();
 
-        log('_path--->$_pathNativeDirectory/$libraryName');
-
-        return DynamicLibrary.open('$_pathNativeDirectory/$libraryName');
+        // log('_path--->$_pathNativeDirectory/$libraryName');
+        // return DynamicLibrary.open('$_pathNativeDirectory/$libraryName');
+        return DynamicLibrary.open(libraryName);
       } catch (_) {
         try {
           // final PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -89,16 +89,25 @@ class MyDLikLib {
 
           // final PackageInfo packageInfo = await PackageInfo.fromPlatform();
           // final String _packageName = packageInfo.packageName;
-          log('path--->/data/data/$_packageName/lib/$libraryName');
+          // log('path--->/data/data/$_packageName/lib/$libraryName');
 
           return DynamicLibrary.open(
               '/data/data/$_packageName/lib/$libraryName');
         } catch (_) {
-          log('path--->ERROR');
-          rethrow;
+          try {
+            // log('_path--->$_pathNativeDirectory/$libraryName');
+            return DynamicLibrary.open('$_pathNativeDirectory/$libraryName');
+          } catch (e) {
+            // log('path--->ERROR');
+            rethrow;
+          }
         }
       }
     }
+  }
+
+  void setNativeDir({required String nativeDir}) {
+    _pathNativeDirectory = nativeDir;
   }
 
   void setPackageName({required String packageName}) {

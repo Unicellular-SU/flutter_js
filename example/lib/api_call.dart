@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter_js/flutter_js.dart';
 
 // example to show how to an api call can be made and used a Future in dart
-Future<dynamic> getUser() {
+Future<dynamic> getUser() async {
   final completer = Completer();
   final code = """
     try {
@@ -18,7 +18,7 @@ Future<dynamic> getUser() {
       sendMessage('onError', e.message);
     }
   """;
-  final jsRuntime = getJavascriptRuntime();
+  final jsRuntime = await getJavascriptRuntime();
   jsRuntime.onMessage('onRequestSuccess', completer.complete);
   jsRuntime.onMessage('onRequestFailure', (args) {
     completer.completeError(args);

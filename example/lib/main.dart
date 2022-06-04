@@ -32,8 +32,7 @@ class FlutterJsHomeScreen extends StatefulWidget {
 class _FlutterJsHomeScreenState extends State<FlutterJsHomeScreen> {
   String _jsResult = '';
 
-  final JavascriptRuntime javascriptRuntime =
-      getJavascriptRuntime(packageName: 'io.abner.flutter_js_example');
+  late JavascriptRuntime javascriptRuntime;
 
   String? _quickjsVersion;
 
@@ -62,6 +61,8 @@ class _FlutterJsHomeScreenState extends State<FlutterJsHomeScreen> {
 
   @override
   void initState() {
+    //packageName: 'io.abner.flutter_js_example'
+    getJavascriptRuntime().then((value) => javascriptRuntime = value);
     super.initState();
 
     // widget.javascriptRuntime.onMessage('ConsoleLog2', (args) {
