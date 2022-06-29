@@ -98,7 +98,7 @@ class MyDLikLib {
             // log('_path--->$_pathNativeDirectory/$libraryName');
             return DynamicLibrary.open('$_pathNativeDirectory/$libraryName');
           } catch (e) {
-            // log('path--->ERROR');
+            // log('path--->$e');
             rethrow;
           }
         }

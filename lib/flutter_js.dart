@@ -1,5 +1,6 @@
 import 'dart:convert';
 // import 'dart:developer';
+// import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_js/javascript_runtime.dart';
@@ -41,9 +42,27 @@ Future<JavascriptRuntime> getJavascriptRuntime({
     final String? nativeDir =
         await _methodChannel.invokeMethod('getNativeLibraryDirectory');
     // log('nativeDir---->$nativeDir');
+
     if (nativeDir != null && packageName != null) {
       MyDLikLib().setPackageName(packageName: packageName);
       MyDLikLib().setNativeDir(nativeDir: nativeDir);
+
+      //On some Samsung devices.
+      try {
+        //chek is openable.
+        MyDLikLib().getDynamicLibrary();
+      } catch (e) {
+        //load from native(java/kotlin)
+        try {
+          //On some phones trying to open the library from the native side adds a string 'lib' to the beginning in a weird way. So we try to load without the string 'lib'.
+          await _methodChannel.invokeMethod(
+              'loadLibrary', 'fastdev_quickjs_runtime');
+        } catch (e) {
+          //try native open with original name lib.
+          await _methodChannel.invokeMethod(
+              'loadLibrary', 'libfastdev_quickjs_runtime');
+        }
+      }
     }
   }
   if ((Platform.isAndroid && !forceJavascriptCoreOnAndroid)) {

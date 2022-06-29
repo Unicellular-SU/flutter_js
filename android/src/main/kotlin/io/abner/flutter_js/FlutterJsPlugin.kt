@@ -1,7 +1,8 @@
 package io.abner.flutter_js
 
-import android.os.Build
-import android.util.Log
+// import fi.iki.elonen.NanoHTTPD
+// import kotlinx.coroutines.Dispatchers
+// import kotlinx.coroutines.withContext
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.BinaryMessenger
@@ -9,19 +10,9 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
-import android.os.Looper
-import android.os.Handler
-// import fi.iki.elonen.NanoHTTPD
-// import kotlinx.coroutines.Dispatchers
-// import kotlinx.coroutines.withContext
-import java.net.URLEncoder
-import java.util.*
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
+//import io.flutter.plugin.common.PluginRegistry.Registrar
 
-data class MethodChannelResult(val success: Boolean, val data: Any? = null)
+//data class MethodChannelResult(val success: Boolean, val data: Any? = null)
 
 /** FlutterJsPlugin */
 class FlutterJsPlugin : FlutterPlugin, MethodCallHandler {
@@ -47,17 +38,17 @@ class FlutterJsPlugin : FlutterPlugin, MethodCallHandler {
     // them functionally equivalent. Only one of onAttachedToEngine or registerWith will be called
     // depending on the user's project. onAttachedToEngine or registerWith must both be defined
     // in the same class.
-    companion object {
-
-
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            val instance = FlutterJsPlugin()
-            instance.onAttachedToEngine(registrar.context(), registrar.messenger())
-        }
-
-        var jsEngineMap = mutableMapOf<Int, JSEngine>()
-    }
+//    companion object {
+//
+//
+//        @JvmStatic
+//        fun registerWith(registrar: Registrar) {
+//            val instance = FlutterJsPlugin()
+//            instance.onAttachedToEngine(registrar.context(), registrar.messenger())
+//        }
+//
+//        var jsEngineMap = mutableMapOf<Int, JSEngine>()
+//    }
 
 //    suspend fun invokeMethod(jsEngine: JSEngine, method: String, arguments: Any, callback: (result: MethodChannelResult) -> Unit): MethodChannelResult {
 //        println(">>> send n2f : cmd - $method")
@@ -84,7 +75,7 @@ class FlutterJsPlugin : FlutterPlugin, MethodCallHandler {
         if (call.method == "getPlatformVersion") {
             result.success("Android ${android.os.Build.VERSION.RELEASE}")
         } else if (call.method == "getNativeLibraryDirectory") {
-            val applicationInfo = this.applicationContext?.applicationInfo;
+            val applicationInfo = this.applicationContext?.applicationInfo
 
             if (applicationInfo != null) {
                 result.success(applicationInfo.nativeLibraryDir)
@@ -92,12 +83,19 @@ class FlutterJsPlugin : FlutterPlugin, MethodCallHandler {
                 result.success(null)
             }
         }else if (call.method == "getPackageName") {
-            val applicationInfo = this.applicationContext?.applicationInfo;
+            val applicationInfo = this.applicationContext?.applicationInfo
 
             if (applicationInfo != null) {
                 result.success(applicationInfo.packageName)
             } else {
                 result.success(null)
+            }
+        }else if(call.method == "loadLibrary"){
+            try {
+                System.loadLibrary((call.arguments as String))
+                result.success(null)
+            } catch (e: Throwable) {
+                result.error("1", "could not load: $e", null)
             }
         }
         /* else if (call.method == "initEngine") {
@@ -176,6 +174,7 @@ class FlutterJsPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         // jsEngineMap.forEach { engine -> engine.value.release() }
+        methodChannel?.setMethodCallHandler(null)
     }
 }
 
