@@ -31,11 +31,12 @@ export 'javascript_runtime.dart';
 Future<JavascriptRuntime> getJavascriptRuntime({
   bool forceJavascriptCoreOnAndroid = false,
   bool xhr = true,
+  bool useFlutterTerminal = true,
   Map<String, dynamic>? extraArgs = const {},
   // String? packageName,
 }) async {
   JavascriptRuntime runtime;
-
+  JavascriptRuntime.useFlutterTerminal = useFlutterTerminal;
   if (Platform.isAndroid) {
     final String? packageName =
         await _methodChannel.invokeMethod('getPackageName');
