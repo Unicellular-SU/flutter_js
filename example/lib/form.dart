@@ -76,7 +76,8 @@ class FormWidgetState extends State<FormWidget> {
     return (String? value) {
       String actualValue = _savedValues[field] ?? '';
       _fieldValues[field] = actualValue;
-      _errorsMap[field] = widget.validateFunction(field, actualValue, _fieldValues);
+      _errorsMap[field] =
+          widget.validateFunction(field, actualValue, _fieldValues);
       return (_errorsMap[field] ?? []).length > 0 ? 'Campo inválido' : null;
     };
   }
@@ -186,7 +187,7 @@ class FormWidgetState extends State<FormWidget> {
                             'Aviso no campo $field',
                           ),
                           actions: <Widget>[
-                            FlatButton(
+                            TextButton(
                               child: const Text('OK'),
                               onPressed: () => Navigator.of(context).pop(),
                             ),
@@ -228,7 +229,7 @@ class FormWidgetState extends State<FormWidget> {
 }
 
 class Debouncer {
-  late  final int milliseconds;
+  late final int milliseconds;
   VoidCallback? action;
   Timer? _timer;
 
