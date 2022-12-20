@@ -8,7 +8,6 @@ import 'dart:typed_data';
 
 import 'package:ffi/ffi.dart';
 import 'package:flutter_js/flutter_js.dart';
-import 'package:flutter_js/javascript_runtime.dart';
 
 import 'ffi.dart';
 
@@ -191,6 +190,7 @@ class QuickJsRuntime2 extends JavascriptRuntime {
     //       'RESULT: ${result.onError((error, stackTrace) => print('ERROR: $error _-----------------'))}');
     // }
     //jsFreeValue(ctx, jsval);
+    jsFreeValue(ctx, jsval);
     return JsEvalResult(result?.toString() ?? "null", result);
   }
 
@@ -208,6 +208,12 @@ class QuickJsRuntime2 extends JavascriptRuntime {
   @override
   void dispose() {
     // TODO: implement dispose
+    try {
+      port.close(); // stop dispatch loop
+      close(); // close engine
+    } on JSError catch (e) {
+      print(e); // catch reference leak exception
+    }
   }
 
   @override
