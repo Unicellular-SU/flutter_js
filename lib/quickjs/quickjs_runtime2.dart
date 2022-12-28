@@ -207,12 +207,11 @@ class QuickJsRuntime2 extends JavascriptRuntime {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     try {
       port.close(); // stop dispatch loop
       close(); // close engine
     } on JSError catch (e) {
-      print(e); // catch reference leak exception
+      // print(e); // catch reference leak exception
     }
   }
 
