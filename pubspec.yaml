@@ -13,7 +13,8 @@ dependencies:
     sdk: flutter
 #  ffi: "^1.0.0"
   ffi: ^2.0.1
-  http: ^0.13.4
+#  http: ^0.13.4
+  http: ^1.0.0
   sync_http: ^0.3.0
 
 dev_dependencies:

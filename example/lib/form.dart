@@ -205,7 +205,7 @@ class FormWidgetState extends State<FormWidget> {
           //floatingLabelBehavior: FloatingLabelBehavior.always,
           border: OutlineInputBorder(
             borderSide:
-                BorderSide(color: Theme.of(context).accentColor, width: 1.5),
+                BorderSide(color: Theme.of(context).colorScheme.secondary, width: 1.5),
           ),
           contentPadding: EdgeInsets.fromLTRB(8, 1, 8, 2),
           alignLabelWithHint: true,
