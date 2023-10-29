@@ -26,14 +26,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f91e2026-091f-45ea-8cd2-74b829682137" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/form.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/form.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter_js.iml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_js.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/quickjs/qjs_typedefs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/quickjs/qjs_typedefs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/quickjs/utf8_null_terminated.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/quickjs/utf8_null_terminated.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,14 +51,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
@@ -106,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672223994183</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="upgrade plugin http">
+      <created>1689138011100</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1689138011100</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -131,7 +131,8 @@
     <MESSAGE value="update ffi" />
     <MESSAGE value="add dispose implementation for quickjs" />
     <MESSAGE value="remove print exception" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove print exception" />
+    <MESSAGE value="upgrade plugin http" />
+    <option name="LAST_COMMIT_MESSAGE" value="upgrade plugin http" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
